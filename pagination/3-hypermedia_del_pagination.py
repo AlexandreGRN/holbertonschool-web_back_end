@@ -41,8 +41,10 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """ get page with hypermedia index """
-        assert index > 0
-        assert page_size > 0
+        assert type(index) is int
+        assert type(page_size) is int
+        assert index > 0 and page_size > 0
+        assert index <= len(self.indexed_dataset())
 
         data = []
         dataset = self.dataset()
