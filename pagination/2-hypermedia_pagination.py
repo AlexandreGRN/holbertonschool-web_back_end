@@ -44,15 +44,20 @@ class Server:
         assert type(page_size) is int
         assert page > 0 and page_size > 0
         self.dataset()
-        t = self.index_range(page, page_size)
-        datas = self.__dataset[t[0]: t[1]]
-        next_page_data = self.__dataset[t[0] + page_size : t[1] + page_size]
-        previous_page_data = []
-        if page != 1:
-            previous_page_data = self.__dataset[t[0] - page_size : t[1] - page_size]
-        next_page = page + 1 if len(next_page_data) > 0 else None
-        previous_page = page - 1 if len(next_page_data) > 0 else None
-        return { "page_size": len(datas), "page": page, "data": datas, "next_page": next_page, "prev_page": previous_page, "total_pages": int(len(self.__dataset) / page_size) + (len(self.__dataset) % page_size > 0)}
+        datas = self.get_page(page, page_size)
+        nextpage_data = self.get_page(page + 1, page_size)
+        prevpage_data = [] if page == 1 else self.get_page(page - 1, page_size)
+        next_page = page + 1 if len(nextpage_data) > 0 else None
+        prev_page = page - 1 if len(prevpage_data) > 0 else None
+        return {
+            "page_size": len(datas),
+            "page": page,
+            "data": datas,
+            "next_page": next_page,
+            "prev_page": prev_page,
+            "total_pages": int(len(self.__dataset) / page_size)
+            + (len(self.__dataset) % page_size > 0)
+        }
 
     def index_range(self, page: int, page_size: int) -> Tuple[int, int]:
         """ return the index range of a specific page knowing page sizes """
