@@ -1,0 +1,4 @@
+export PERSONAL_DATA_DB_USERNAME=gab
+export PERSONAL_DATA_DB_PASSWORD=root
+export PERSONAL_DATA_DB_HOST=localhost
+export PERSONAL_DATA_DB_NAME=mysql
