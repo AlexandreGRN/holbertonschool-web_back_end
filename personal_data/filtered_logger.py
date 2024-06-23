@@ -13,6 +13,7 @@ def filter_datum(fields: List[str],
     return re.sub(f'({patern})=.*?{separator}', r'\g<1>' + "="
                   + redaction + separator, message)
 
+
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
     """
