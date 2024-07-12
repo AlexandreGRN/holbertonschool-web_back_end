@@ -9,7 +9,7 @@ class Auth:
     """ API authentication. """
 
     current_user = None
-    
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ is authenticated. """
         if path is None or excluded_paths is None or len(excluded_paths) < 1:
