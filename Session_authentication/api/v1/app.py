@@ -43,17 +43,27 @@ def forbidden(error) -> str:
 
 @app.before_request
 def before_request():
-    """ Before request handler check if route one of those in the list """
-    if auth:
-        if auth.require_auth(request.path, ['/api/v1/status/',
-                                            '/api/v1/unauthorized/',
-                                            '/api/v1/forbidden/']) is True:
-            if auth.authorization_header(request) is None:
-                abort(401)
-            current_user = auth.current_user(request)
-            if current_user is None:
-                abort(403)
-            auth.current_user = current_user
+    """  checks authentication before each request, except for specific routes.
+    """
+    if auth is None:
+        return
+
+    exclude_path = ['/api/v1/status/',
+                    '/api/v1/unauthorized/',
+                    '/api/v1/forbidden/',
+                    '/api/v1/auth_session/login/']
+
+    if auth.require_auth(request.path, exclude_path) is not True:
+        return
+
+    if auth.authorization_header(request) is None \
+            and auth.session_cookie(request) is None:
+        return abort(401)
+
+    if auth.current_user(request) is None:
+        return abort(403)
+
+    request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
