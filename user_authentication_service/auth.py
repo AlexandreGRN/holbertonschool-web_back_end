@@ -7,6 +7,8 @@ from db import DB
 from user import User
 import sqlalchemy
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
+import uuid
 
 
 def _hash_password(password: str) -> bytes:
