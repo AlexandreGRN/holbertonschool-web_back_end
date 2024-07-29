@@ -4,6 +4,8 @@ AUTH file
 """
 import bcrypt
 from db import DB
+from user import User
+import sqlalchemy
 from sqlalchemy.orm.exc import NoResultFound
 
 
