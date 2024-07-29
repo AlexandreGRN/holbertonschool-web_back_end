@@ -29,5 +29,33 @@ def register_user():
         return jsonify({"message": "email already registered"})
 
 
+@app.route("/sessions", methods=["POST"], strict_slashes=False)
+def login():
+    """ login """
+    try:
+        log = AUTH.valid_login(request.form["email"], request.form["password"])
+        if log:
+            user_sessionID = AUTH.create_session(request.form["email"])
+            response = jsonify({"email": request.form["email"],
+                                "message": "logged in"})
+            response.set_cookie('session_id', user_sessionID)
+            return response
+        else:
+            return abort(401)
+    except ValueError:
+        return abort(401)
+
+
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
+def logout():
+    """ logout """
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        AUTH.destroy_session(user.id)
+        return redirect("/")
+    return abort(403)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
