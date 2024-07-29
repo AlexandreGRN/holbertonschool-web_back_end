@@ -6,6 +6,7 @@ import bcrypt
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
 
+
 def _hash_password(password: str) -> bytes:
     """ hash password for security """
     return bcrypt.hashpw(password.encode("UTF-8"), bcrypt.gensalt())
