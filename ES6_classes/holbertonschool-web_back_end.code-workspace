@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "holbertonschool-web_back_end",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"cmake.configureOnOpen": true,
+		"cmake.sourceDirectory": "/home/cardonasean123/holbertonschool-web_back_end/ES6_classes/node_modules/nan"
+	}
+}
