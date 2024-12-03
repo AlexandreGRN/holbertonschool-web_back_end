@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 const { expect } = require('chai');
-const calculateNumber = require('./1-calcul');
+const calculateNumber = require('./2-calcul_chai');
 
 describe('when type is SUM', function () {
     it('when type is SUM', function () {
