@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 module.exports = function calculateNumber(a, b) {
     const aNum = Number(a);
     const bNum = Number(b);
