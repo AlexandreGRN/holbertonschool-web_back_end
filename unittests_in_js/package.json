@@ -1,0 +1,12 @@
+{
+  "name": "unittests_in_js",
+  "version": "1.0.0",
+  "main": "0-calcul.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module"
+}
