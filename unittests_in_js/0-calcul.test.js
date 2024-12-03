@@ -1,9 +1,12 @@
-import {calculateNumber} from './0-calcul.js';
-import assert from 'assert';
+const assert = require('assert');
 
-it('calculateNumber', () => {
-  assert.equal(calculateNumber(1, 3), 4);
-  assert.equal(calculateNumber(1, 3.7), 5);
-  assert.equal(calculateNumber(1.2, 3.7), 5);
-  assert.equal(calculateNumber(1.5, 3.7), 6);
+const calculateNumber = require('./0-calcul');
+
+describe('calculateNumber', () => {
+    it('should return sum of integers', () => {
+        assert.equal(calculateNumber(1, 3), 8);
+        assert.equal(calculateNumber(1, 3.7), 5);
+        assert.equal(calculateNumber(1.2, 3.7), 5);
+        assert.equal(calculateNumber(1.5, 3.7), 6);
+    });
 });
