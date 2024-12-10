@@ -1,14 +1,79 @@
 const request = require('request');
-const chai = require('chai')
-const { expect } = require('chai');
+const chai = require('chai');
 
-describe('API test', () => {
-      it('respond with 200 code and body', (done) => {
-        request('http://localhost:7865', 'GET', (err, res, body) => {
-          if (err) throw err;
-          expect(res.statusCode).to.equal(200);
-          expect(body).to.equal('Welcome to the payment system');
-        });
-        done();
+
+describe('GET /', () => {
+  it('endpoint: GET /', (done) => {
+    const call = {
+      url: 'http://localhost:7865',
+      method: 'GET',
+    };
+    request(call, (error, response, body) => {
+      chai.expect(response.statusCode).to.equal(200);
+      chai.expect(body).to.equal('Welcome to the payment system');
+      done();
     });
+  });
+});
+
+
+describe('GET /cart/:id', () => {
+  it('endpoint: GET /cart/:id', (done) => {
+    const call = {
+      url: 'http://localhost:7865/cart/12',
+      method: 'GET',
+    };
+    request(call, (error, response, body) => {
+      chai.expect(response.statusCode).to.equal(200);
+      chai.expect(body).to.equal('Payment methods for cart 12');
+      done();
+    });
+  });
+});
+
+
+describe('GET /cart/:isNaN', () => {
+  it('endpoint: GET /cart/:isNaN', (done) => {
+    const call = {
+      url: 'http://localhost:7865/cart/anything',
+      method: 'GET',
+    };
+    request(call, (error, response, body) => {
+      chai.expect(response.statusCode).to.equal(404);
+      done();
+    });
+  });
+});
+
+describe('GET /available_payments', () => {
+  it('endpoint: GET /available_payments', (done) => {
+    const call = {
+      url: 'http://localhost:7865/available_payments',
+      method: 'GET',
+    };
+    request(call, (error, response, body) => {
+      chai.expect(response.statusCode).to.equal(200);
+      chai.expect(body).to.equal(
+        '{"payment_methods":{"credit_cards":true,"paypal":false}}'
+      );
+      done();
+    });
+  });
+});
+
+describe('POST /login', () => {
+  it('POST /login', (done) => {
+    const call = {
+      url: 'http://localhost:7865/login',
+      method: 'POST',
+      json: {
+        userName: 'Vanessa',
+      },
+    };
+    request(call, (error, response, body) => {
+      chai.expect(response.statusCode).to.equal(200);
+      chai.expect(body).to.equal('Welcome Vanessa');
+      done();
+    });
+  });
 });
